@@ -17,9 +17,9 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.mycompany.myapp.entities.Book;
-import com.mycompany.myapp.entities.Hotel;
+import com.mycompany.myapp.entities.Teams;
 import com.mycompany.myapp.entities.HotelRoom;
-import com.mycompany.myapp.services.HotelService;
+import com.mycompany.myapp.services.TeamsService;
 import com.mycompany.myapp.services.RoomService;
 import java.util.ArrayList;
 

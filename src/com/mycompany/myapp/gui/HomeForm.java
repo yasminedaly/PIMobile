@@ -53,32 +53,35 @@ public class HomeForm extends BaseForm {
         add(LayeredLayout.encloseIn(
                 sl
         ));
+        Button btnListFormation = new Button("Produts");
+        Button btnTeams = new Button("Teams");
+        Button btnAddHotel = new Button("Add Team");
         Button clientRoom = new Button("list Rooms");
 
+        Button stat = new Button("Statistique");
         //Button btnAddFormation = new Button("add Hotel Chain");
-        Button btnListFormation = new Button("list Hotel Chain");
-        Button btnAddHotel = new Button("add Hotel");
-        Button btnListHotels = new Button("list Hotels");
+        
+        
+        
 
         //Button btnAddRoom = new Button("add Room");
         Button btnListRoom = new Button("list Rooms");
 
         //Button btnRecherche=new Button("Recherche");
-        Button map = new Button("map");
-        Button stat = new Button("Statistique");
+        
 
         //map.addActionListener(e -> new MapGoogleForm(theme, current));
 
         //btnAddFormation.addActionListener(e -> new AddHCForm(current).show());
         btnListFormation.addActionListener(e -> new ListHCForm(current).show());
         //btnAddHotel.addActionListener(e -> new AddHotelForm(current).show());
-        btnListHotels.addActionListener(e -> new ListHotelForm(current).show());
+        btnTeams.addActionListener(e -> new addTeam(current).show());
         //btnAddRoom.addActionListener(e -> new AddRoomForm(current).show());
         btnListRoom.addActionListener(e -> new ListeRoomForm(current).show());
         stat.addActionListener(e -> new StatPieForm(current).show());
         clientRoom.addActionListener(e -> new ListRoomsClientForm(current).show());
 
-        addAll( btnListFormation, btnListHotels, btnListRoom, map, stat);
+        addAll(btnListFormation, btnTeams, btnListRoom, stat);
 
     }
 

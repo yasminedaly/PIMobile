@@ -11,24 +11,18 @@ package com.mycompany.myapp.gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.mycompany.myapp.entities.HotelRoom;
-import com.mycompany.myapp.services.RoomService;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.MultiButton;
-import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
-import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
@@ -43,54 +37,32 @@ import com.mycompany.myapp.services.TeamsService;
 //import com.itextpdf.text.pdf.PdfWriter;
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Lenovo
- */
-public class ListeRoomForm extends Form {
+public class addTeam extends Form {
 
     Form current;
+    Form res;
 
-    public ListeRoomForm(Form previous) {
+    //Ressources res;
+    public addTeam(Form previous) {
         current = this;
-        getToolbar().addCommandToLeftBar("Back", null, (evt) -> {
-            previous.showBack();
-        });
 
-        RoomService sp = new RoomService();
+        TeamsService sp = new TeamsService();
         add(new InfiniteProgress());
         Display.getInstance().scheduleBackgroundTask(() -> {
 
             Display.getInstance().callSerially(() -> {
-                //try {
-                //Image ban = Image.createImage("file://C:\\Users\\21628\\Desktop\\Mobile\\Final\\src\\Attraction\\Images\\banner.jpg").scaledHeight(1000);
-                // add(ban);
-                //} catch (IOException ex) {
-
-                //}
+               
                 removeAll();
                 setLayout(BoxLayout.y());
-
-                // Button ttrie =new Button("trie");
-                ///// ttrie.addActionListener(e-> new ListFormationFormtrie(current).show()); 
-                // back = Image.createImage("/logo.png");
-                //back.scaled(1000, 1000);
-                // add(ttrie);
-               
-                
-                Button btnAddRoom = new Button("add Room");
-                btnAddRoom.addActionListener(e -> new AddRoomForm(current).show());
-                addAll( btnAddRoom);
+        Button btnAddTeam = new Button("add Team");
+        btnAddTeam.addActionListener(e -> new AddTeamForm(current).show());
+        addAll(btnAddTeam);
+             
                 Button search = new Button("Search");
                 add(search);
-                // ttrie.addActionListener(e-> new ListFormationFormtrie(current).show()); 
-                // back = Image.createImage("/logo.png");
-                //back.scaled(1000, 1000);
-                // add(ttrie);
 
                 Style s = UIManager.getInstance().getComponentStyle("Title");
 
@@ -99,18 +71,18 @@ public class ListeRoomForm extends Form {
                     hi.show();
                 });
                 Button gui_Button_12 = new Button();
-                gui_Button_12.setText("search");
+                gui_Button_12.setText("Search");
                 gui_Button_12.setUIID("Label");
                 gui_Button_12.setName("Button_12");
                 FontImage.setMaterialIcon(gui_Button_12, FontImage.MATERIAL_CIRCLE);
                 TextField searchField = new TextField("", "Toolbar Search"); // <1>
-                searchField.getHintLabel().setUIID("Title");
-                searchField.setUIID("Title");
+                searchField.getHintLabel().setUIID("Team Name");
+                searchField.setUIID("Team Name");
                 searchField.getAllStyles().setAlignment(Component.LEFT);
                 hi.getToolbar().setTitleComponent(searchField);
                 FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, s);
-                ArrayList<HotelRoom> list1;
-                list1 = RoomService.getInstance().getAllHR();
+                ArrayList<Teams> list1;
+                list1 = TeamsService.getInstance().getAllTeams();
                 //hi.add(gui_Button_12);
                 searchField.addDataChangeListener((i1, i2) -> { // <2>
                     String t = searchField.getText();
@@ -147,35 +119,27 @@ public class ListeRoomForm extends Form {
                     searchField.startEditingAsync(); // <4>
                     //    hi.add(gui_Button_12);
                 });
-                for (HotelRoom recc : list1) {
-                    Label b = new Label(recc.getRoom_Type());
-
+                for (Teams recc : list1) {
+                    Label b = new Label(recc.getTeam_name());
                     hi.add(b);
 
                     b.addPointerPressedListener(e -> {
 
-                        //   if (recc.getRoom_Type()== b.getText())
-                        //{
-                        //  new  formasearch2(current,reccc).show();
-                        //}
+                        if (recc.getTeam_name() == b.getText()) {
+                            new formasearch1(current, recc).show();
+                        }
                     });
                 }
-                Button trie = new Button("Actualiser");
+                Button trie = new Button("Refresh");
 
-                trie.addActionListener(e -> new ListeRoomForm(current).show());
+                trie.addActionListener(e -> new addTeam(current).show());
                 add(trie);
 
-                List<HotelRoom> listerec = sp.getAllHR();
-                for (HotelRoom p : listerec) {
-                    //try {
-                    //  Image imagee = Image.createImage("file://C:\\Users\\21628\\Desktop\\final web\\koko444\\pi\\public\\images\\logos\\"+p.getLogo()+"").scaledHeight(350);
-                    //add(imagee);
-                    //} catch (IOException ex) {
-
-                    //}
+                List<Teams> listerec = sp.getAllTeams();
+                for (Teams p : listerec) {
                     MultiButton m = new MultiButton();
-                    m.setTextLine1("TYpe: " + p.getRoom_Type());
-                    m.setTextLine2("Number: " + p.getNbrRoom());
+                    m.setTextLine1("Name: " + p.getTeam_name());
+                    m.setTextLine2("Tag: " + p.getTeam_tag());
 
                     add(m);
 
@@ -184,78 +148,22 @@ public class ListeRoomForm extends Form {
                         public void actionPerformed(ActionEvent evt) {
                             if (Dialog.show("Confirmation", "What do you want?", "Delete", "Update")) {
 
-                                if (RoomService.getInstance().deleteHR(p)) {
+                                if (TeamsService.getInstance().deleteTeam(p)) {
                                     {
-                                        Dialog.show("Success", "Room " + p.getNbrRoom() + " is deleted !! ", new Command("OK"));
+                                        Dialog.show("Success", "Team " + p.getTeam_name() + " is deleted !! ", new Command("OK"));
                                         previous.showBack();
                                     }
                                 }
                             } else {
 
-                                EditRoomForm t = new EditRoomForm(current, p);
+                                EditHForm t = new EditHForm(current, p);
                                 t.show();
                             }
                         }
-                    });
-                }
-
-                /* Button pdf=new Button("             PDF             ");
- add(pdf);  
- pdf.addActionListener(new ActionListener() {
-                  
-                    public void actionPerformed(ActionEvent evt) {
-                        String path="C:\\Users\\21628\\Desktop\\PDF soka\\";
-        
-        Document document = new Document();
-      try
-      {
-         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(path+"Agence.pdf"));
-           document.open();
-          PdfPTable tb1 = new PdfPTable(4);
-          tb1.addCell("Nom");
-          tb1.addCell("Adresse");
-          tb1.addCell("Email");
-          tb1.addCell("Tel");
-          
-         ServiceCours es = new ServiceCours();
-        ArrayList<Cours> list = es.getAllAgences();
-          for (int i = 0; i < list.size(); i++) {
-            
-              String Nom= String.valueOf(list.get(i).getNom());
-              String Q1= String.valueOf(list.get(i).getDescription());
-              
-              
-          tb1.addCell(Nom);
-          tb1.addCell(Q1);
-         
-          
-         
-         
-          }
-         document.add(new Paragraph("Agence"));
-         document.add(tb1);
-         document.close();
-         writer.close();
-                           Dialog.show("Success","Le PDF a été crée",new Command("OK"));  
-
-        com.codename1.io.File file=new com.codename1.io.File("test.pdf");
-        //desktop.open(file);
-      } catch (DocumentException e)
-      {
-         e.printStackTrace();
-      }catch (FileNotFoundException e)
-      {
-         e.printStackTrace();
-      }
-                        //Logger.getLogger(ListFormation.class.getName()).log(Level.SEVERE, null, ex);
-
-                     
                     }
-                    
+                    );
                 }
-                
-                
-                );*/
+
                 revalidate();
             });
         });

@@ -5,8 +5,8 @@
  */
 package com.mycompany.myapp.gui;
 
-import com.mycompany.myapp.entities.Hotel;
-import com.mycompany.myapp.services.HotelService;
+import com.mycompany.myapp.entities.Teams;
+import com.mycompany.myapp.services.TeamsService;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
@@ -34,62 +34,56 @@ import java.net.URISyntaxException;
  */
 public class EditHForm extends Form {
 
-    public EditHForm(Form previous, Hotel t) {
+    public EditHForm(Form previous, Teams t) {
         /*
         Le paramètre previous définit l'interface(Form) précédente.
         Quelque soit l'interface faisant appel à AddAgence, on peut y revenir
         en utilisant le bouton back
          */
-        setTitle("Update Hotel " + t.getHotel_Name() + "");
+        setTitle("Update Team " + t.getTeam_name()+ "");
         setLayout(BoxLayout.y());
 
-        //try {
-        // Image ban = Image.createImage("file://C:\\Users\\21628\\Desktop\\Mobile\\Final\\src\\Attraction\\Images\\banner.jpg").scaledHeight(1000);
-        //add(ban);
-        //} catch (IOException ex) {
-        //}
-        //Button logos= new Button("Image");
-        TextField tfNom = new TextField(t.getHotel_Name());
-        tfNom.setUIID("TextFieldBlack");
-        TextField tfStaff = new TextField(t.getHotel_Staff());
-        tfStaff.setUIID("TextFieldBlack");
-        TextField tfLoc = new TextField(t.getHotel_Location());
-        tfLoc.setUIID("TextFieldBlack");
-        TextField tfPhone = new TextField(t.getHotel_Phone());
-        tfPhone.setUIID("TextFieldBlack");
+        TextField tfName = new TextField("", "Team name");
+        tfName.setUIID("TextFieldBlack");
+        // addStringValue("",tfName);
 
-        TextField tfDesc = new TextField(t.getHotel_Description());
-        tfDesc.setUIID("TextFieldBlack");
+        TextField tfTag = new TextField("", "Tag");
+        tfTag.setUIID("TextFieldBlack");
+        //addStringValue("",tfTag);
+
+        TextField tfMail = new TextField("", "Mail");
+        tfMail.setUIID("TextFieldBlack");
+        //addStringValue("",tfDesc);
+
+        TextField tfReg = new TextField("", "Region");
+        tfReg.setUIID("TextFieldBlack");
 
         Button btnValider = new Button("Update");
-
-        CheckBox multiSelect = new CheckBox("Multi-select");
 
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if ((tfNom.getText().length() == 0) || (tfStaff.getText().length() == 0) || (tfLoc.getText().length() == 0) || (tfPhone.getText().length() == 0) || (tfDesc.getText().length() == 0)) {
-                    Dialog.show("Alert", "Fill the fields !", new Command("OK"));
+               if ((tfName.getText().length() == 0) || (tfTag.getText().length() == 0)  || (tfMail.getText().length() == 0) || (tfReg.getText().length() == 0)){
+                    Dialog.show("Alert", "You Should fill all the fields!", new Command("OK"));
                 } else {
                     InfiniteProgress ip = new InfiniteProgress();
                     final Dialog iDialog = ip.showInfiniteBlocking();
                     // int staff = Integer.parseInt(tfStaff.getText());
 
-                    t.setHotel_Name(tfNom.getText());
-                    tfNom.setUIID("TextFieldBlack");
-                    t.setHotel_Staff(tfStaff.getText());
-                    tfStaff.setUIID("TextFieldBlack");
-                    t.setHotel_Location(tfLoc.getText());
-                    tfLoc.setUIID("TextFieldBlack");
+                    t.setTeam_name(tfName.getText());
+                    tfName.setUIID("TextFieldBlack");
+                    t.setTeam_tag(tfTag.getText());
+                    tfTag.setUIID("TextFieldBlack");
+                    t.setTeam_mail(tfMail.getText());
+                    tfMail.setUIID("TextFieldBlack");
 
-                    t.setHotel_Phone(tfPhone.getText());
-                    tfPhone.setUIID("TextFieldBlack");
-                    t.setHotel_Description(tfDesc.getText());
-                    tfDesc.setUIID("TextFieldBlack");
+                    t.setTeam_reg(tfReg.getText());
+                    tfReg.setUIID("TextFieldBlack");
+                    
 
-                    if (HotelService.getInstance().editH(t)) {
+                    if (TeamsService.getInstance().editTeam(t)) {
                         iDialog.dispose();
-                        Dialog.show("Success", "Hotel updated!", new Command("OK"));
+                        Dialog.show("Success", "Team updated!", new Command("OK"));
                         previous.showBack();
                     } else {
                         iDialog.dispose();
@@ -100,9 +94,9 @@ public class EditHForm extends Form {
             }
         });
 
-        addAll(tfNom, tfStaff, tfLoc, tfDesc, tfPhone, btnValider);
+        addAll(tfName, tfTag, tfMail, tfReg, btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK,
-                 e -> previous.showBack()); // Revenir vers l'interface précédente
+                 e -> previous.showBack()); 
 
     }
 

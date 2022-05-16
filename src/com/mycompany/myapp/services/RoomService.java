@@ -12,7 +12,7 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
-import com.mycompany.myapp.entities.Hotel;
+import com.mycompany.myapp.entities.Teams;
 import com.mycompany.myapp.entities.HotelRoom;
 import java.io.IOException;
 import java.util.ArrayList;

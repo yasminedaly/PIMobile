@@ -29,12 +29,12 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 
 import com.mycompany.myapp.entities.HotelChain;
-import com.mycompany.myapp.entities.Hotel;
+import com.mycompany.myapp.entities.Teams;
 import com.mycompany.myapp.entities.Product;
 import com.mycompany.myapp.entities.datas;
 
 import com.mycompany.myapp.services.HotelChainService;
-import com.mycompany.myapp.services.HotelService;
+import com.mycompany.myapp.services.TeamsService;
 
 import java.util.ArrayList;
 import java.util.Collections;

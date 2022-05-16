@@ -9,8 +9,8 @@ package com.mycompany.myapp.gui;
  *
  * @author LENOVO
  */
-import com.mycompany.myapp.entities.Hotel;
-import com.mycompany.myapp.services.HotelService;
+import com.mycompany.myapp.entities.Teams;
+import com.mycompany.myapp.services.TeamsService;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.MultiButton;
 import com.codename1.components.SpanLabel;
@@ -51,10 +51,10 @@ public class formasearch1 extends Form {
 
     Form current;
 
-    public formasearch1(Form previous, Hotel recc) {
+    public formasearch1(Form previous, Teams recc) {
         current = this;
 
-        HotelService sp = new HotelService();
+        TeamsService sp = new TeamsService();
         add(new InfiniteProgress());
         Display.getInstance().scheduleBackgroundTask(() -> {
 
@@ -94,7 +94,7 @@ public class formasearch1 extends Form {
 
                     //}
                     MultiButton m = new MultiButton();
-                    m.setTextLine1("Name: " + recc.getHotel_Name());
+                    m.setTextLine1("Name: " + recc.getTeam_name());
                     // m.setTextLine3("description: "+rec.getDescription());
                     //m.setTextLine2("Prix: "+rec.getPrix());
 

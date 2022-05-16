@@ -19,7 +19,7 @@ public class HotelRoom {
     public String room_capacity;
     private String room_Type;
     public boolean isEmpty;
-    private Hotel hotel;
+    private Teams hotel;
     private int id_Hotel;
     private String hotel_Name;
     private String nbrRoom;
@@ -232,11 +232,11 @@ public class HotelRoom {
         this.room_Type = room_Type;
     }
 
-    public Hotel getHotel() {
+    public Teams getHotel() {
         return hotel;
     }
 
-    public void setHotel(Hotel hotel) {
+    public void setHotel(Teams hotel) {
         this.hotel = hotel;
     }
 

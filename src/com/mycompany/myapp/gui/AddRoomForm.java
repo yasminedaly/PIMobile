@@ -21,11 +21,11 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import com.mycompany.myapp.entities.Hotel;
+import com.mycompany.myapp.entities.Teams;
 import com.mycompany.myapp.entities.HotelChain;
 import com.mycompany.myapp.entities.HotelRoom;
 import com.mycompany.myapp.services.HotelChainService;
-import com.mycompany.myapp.services.HotelService;
+import com.mycompany.myapp.services.TeamsService;
 import com.mycompany.myapp.services.RoomService;
 import com.mycompany.myapp.utils.Statics;
 import java.io.IOException;
@@ -42,64 +42,12 @@ public class AddRoomForm extends BaseForm {
         getToolbar().addCommandToLeftBar("Back", null, (evt) -> {
             previous.showBack();
         });
-
-        /*setTitle("add a new");
-        setLayout(BoxLayout.y());
-        TextField Ffid= new TextField("","formationid");
-        TextField Ffnom= new TextField("","formationnom");
-        TextField Ffdescription= new TextField("","formationdescription");
-        TextField Ffimage= new TextField("","formationimage");
-        TextField Ffprix= new TextField("","formationprix");
-        TextField Ffdatede= new TextField("","formationdatede");
-        TextField Ffdatefin= new TextField("","formationdatede");
-        Button btnValider=new Button("Add Formation");
-        btnValider.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent evt){
-                
-                if ((Ffid.getText().length()==0)||(Ffnom.getText().length()==0)||(Ffdescription.getText().length()==0)||(Ffdatede.getText().length()==0)||(Ffdatefin.getText().length()==0) )
-                    Dialog.show("alert", "please fill all the fields", new Command("Ok"));
-                else
-                {
-                    try{
-                        Formation F =new Formation (Integer.parseInt(Ffid.getText()),Ffnom.getText(),Ffdescription.getText());
-                        if (new FormationService().addformation(F)) 
-                            Dialog.show("Success", "Connection accepted", new Command("OK"));
-                        else
-                            Dialog.show("ERRor", "Server error", new Command("OK"));
-                        
-                    }catch(NumberFormatException e){
-                        Dialog.show("ERROR", " id must be a number", new Command("OK"));
-                    }
-                    
-                }    
-                
-              
-                
-                
-                
-                
-                
-                    
-                        
-                
-                        
-                        
-              
-            }
-            
-        });
-        addAll(Ffid,Ffnom,Ffdescription,Ffprix,Ffdatede,Ffdatefin,btnValider); 
-        
-        
-        
-        getToolbar().addMaterialCommandToLeftBar("",FontImage.MATERIAL_ARROW_BACK,e->previous.showBack()); */
         setTitle("add a new");
         setLayout(BoxLayout.y());
 
-        ComboBox<Hotel> cb = new ComboBox();
-        HotelService AGG = new HotelService();
-        ArrayList<Hotel> list = AGG.getAllH();
+        ComboBox<Teams> cb = new ComboBox();
+        TeamsService AGG = new TeamsService();
+        ArrayList<Teams> list = AGG.getAllTeams();
 
         for (int i = 0; i < list.size(); i++) {
             cb.addItem(list.get(i));
@@ -148,19 +96,19 @@ public class AddRoomForm extends BaseForm {
             NetworkManager.getInstance().addToQueueAndWait(cr);
                     try {
 
-                        HotelRoom t = new HotelRoom(tfType.getText(), tfCapacity.getText(), tfNbr.getText(), tfPrice.getText());
-                        t.setImage(filePath.substring(filePath.lastIndexOf("/")).substring(1));
-
-                        t.setId_Hotel(cb.getSelectedItem().getId_Hotel());
-
-                        System.out.print("data hc === " + t);
-
-                        // RoomService.getInstance().addHR(t);
-                        if (new RoomService().addHR(t)) {
-                            Dialog.show("Success", "Connection accepted", new Command("OK"));
-                        } else {
-                            Dialog.show("ERRor", "Server error", new Command("OK"));
-                        }
+//                        Teams t = new Teams(tfName.getText(), tfCapacity.getText(), tfNbr.getText(), tfPrice.getText());
+//                        t.setImage(filePath.substring(filePath.lastIndexOf("/")).substring(1));
+//
+//                        t.setId_Hotel(cb.getSelectedItem().setTeamid(CENTER));
+//
+//                        System.out.print("data hc === " + t);
+//
+//                        // RoomService.getInstance().addHR(t);
+//                        if (new RoomService().addHR(t)) {
+//                            Dialog.show("Success", "Connection accepted", new Command("OK"));
+//                        } else {
+//                            Dialog.show("ERRor", "Server error", new Command("OK"));
+//                        }
 
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", " id must be a number", new Command("OK"));
